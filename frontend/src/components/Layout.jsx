@@ -141,11 +141,14 @@ function NotificationsButton() {
 
 function DesktopSidebar({ items }) {
     return (
-        <aside className="hidden lg:flex flex-col w-72 shrink-0 border-r border-border bg-card/60 backdrop-blur-sm">
-            <div className="px-6 py-6">
+        <aside
+            data-testid="desktop-sidebar"
+            className="hidden lg:flex lg:sticky lg:top-0 h-dvh w-72 shrink-0 flex-col border-r border-border bg-card/60 backdrop-blur-sm"
+        >
+            <div className="shrink-0 px-6 py-6 [@media(max-height:440px)]:py-3">
                 <Brand />
             </div>
-            <nav className="px-3 space-y-1">
+            <nav className="flex-1 min-h-0 overflow-y-auto px-3 space-y-1">
                 {items.map((item) => (
                     <NavLink
                         key={item.to}
@@ -168,9 +171,9 @@ function DesktopSidebar({ items }) {
                     </NavLink>
                 ))}
             </nav>
-            <div className="mt-auto px-6 py-6 space-y-4">
+            <div className="mt-auto shrink-0 px-6 py-6 space-y-4 [@media(max-height:440px)]:py-3">
                 <DevRoleSwitcher variant="sidebar" />
-                <p className="text-[11px] text-muted leading-relaxed">
+                <p className="text-[11px] text-muted leading-relaxed [@media(max-height:440px)]:hidden">
                     Nirikshan is a civic-tech initiative. Reporters are protected;
                     verification is human.
                 </p>
@@ -304,7 +307,7 @@ export default function Layout() {
     }, []);
 
     return (
-        <div className="min-h-dvh flex bg-background text-foreground overflow-x-hidden">
+        <div className="min-h-dvh flex bg-background text-foreground overflow-x-clip">
             <DesktopSidebar items={config.items} />
             <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
                 <DesktopTopBar label={config.label} onOpenOnboarding={() => setShowOnboarding(true)} />
